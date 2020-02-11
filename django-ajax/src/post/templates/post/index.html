@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Like Post App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class = "display-3 color-red"><center>Django AJAX Tutorial<br>Post APP</center></div>
+    {% for post in posts %}
+        <div class = 'container jumbotron'>
+        <h3 class="display-5">{{ forloop.counter }}. {{ post.title }}</h3>
+<p class="lead">{{ post.post }} </p>
+        <p>
+        <div type="text/css" class = "container">Author : {{ post.author }}</div> 
+        <a class="likebutton btn btn-primary btn-lg" id="like{{ post.id }}" href="#" data-catid="{{ post.id }}">Like</a> <span class="px-3">{{post.likecount}}</span> </p> 
+        <p id="message{{post.id}}">
+
+       </p>
+</div>
+{% endfor %}
+
+<script type="text/javascript"> 
+$('.likebutton').click(function(){ 
+var id; 
+id = $(this).attr("data-catid"); 
+$.ajax( 
+{ 
+    type:"GET", 
+    url: "{% url 'like' %}", 
+    data:{ 
+             post_id: id 
+}, 
+success: function( data ) 
+{ 
+    $( '#like'+ id ).removeClass('btn btn-primary btn-lg'); 
+    $( '#like'+ id ).addClass('btn btn-success btn-lg'); } }) });
+</script>
+</body>
+</html>

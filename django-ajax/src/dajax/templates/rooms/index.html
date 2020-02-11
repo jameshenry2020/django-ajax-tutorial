@@ -1,0 +1,10 @@
+{% for room in rooms %}
+
+<tr>
+    <td>{{room.name}}</td>
+    <td>{{room.number}}</td>
+    <td>{{room.get_room_type_display}}</td>
+    <td>{{room.status}}</td>
+</tr>
+
+{%endfor%}
